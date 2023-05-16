@@ -1,5 +1,5 @@
-import { CreateAwardResponse } from "src/dtos/awards/create-award-response.dto";
+import { Award } from 'src/awards/entities/award.entity';
 
 export abstract class AwardsRepository {
-  abstract create(CreateAwardRequest): Promise<CreateAwardResponse>;
+  abstract create(award: Award): Promise<Award>;
 }

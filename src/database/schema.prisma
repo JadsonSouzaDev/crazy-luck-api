@@ -12,49 +12,49 @@ datasource db {
 }
 
 model Award {
-  id String @id @default(uuid())
-  slug String @unique
-  title String 
-  description String @db.VarChar(1000)
-  shortDescription String @db.VarChar(300)
-  urlImage String
-  maxDrawDate DateTime
-  drawDate DateTime
-  totalTickets Int @default(0)
-  prices AwardPrice[]
-  winner Winner?
+  id               String       @id @default(uuid())
+  slug             String       @unique
+  title            String
+  description      String       @db.VarChar(1000)
+  shortDescription String       @db.VarChar(300)
+  urlImage         String?
+  maxDrawDate      DateTime
+  drawDate         DateTime?
+  totalTickets     Int          @default(0)
+  prices           AwardPrice[]
+  winner           Winner?
 }
 
 model AwardPrice {
-  id String @id @default(uuid())
-  quantity Int @default(1)
-  unitPrice Decimal @default(1)
-  award Award @relation(fields: [awardId], references: [id])
-  awardId String
+  id        String  @id @default(uuid())
+  quantity  Int     @default(1)
+  unitPrice Decimal @db.Money
+  award     Award   @relation(fields: [awardId], references: [id], onDelete: Cascade)
+  awardId   String
 }
 
 model User {
-  id String @id @default(uuid())
-  email String @unique
-  name String
+  id      String   @id @default(uuid())
+  email   String   @unique
+  name    String
   winners Winner[]
   tickets Ticket[]
 }
 
 model Ticket {
-  id String @id @default(uuid())
-  number Int @default(1)
+  id     String  @id @default(uuid())
+  number Int     @default(1)
   winner Winner?
-  user User @relation(fields: [userId], references: [id])
+  user   User    @relation(fields: [userId], references: [id])
   userId String
 }
 
 model Winner {
-  id String @id @default(uuid())
-  award Award @relation(fields: [awardId], references: [id])
-  awardId String @unique
-  winner User @relation(fields: [winnerId], references: [id])
+  id       String @id @default(uuid())
+  award    Award  @relation(fields: [awardId], references: [id])
+  awardId  String @unique
+  winner   User   @relation(fields: [winnerId], references: [id])
   winnerId String @unique
-  ticket Ticket @relation(fields: [ticketId], references: [id])
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
   ticketId String @unique
 }

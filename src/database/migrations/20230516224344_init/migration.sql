@@ -5,9 +5,9 @@ CREATE TABLE "Award" (
     "title" TEXT NOT NULL,
     "description" VARCHAR(1000) NOT NULL,
     "shortDescription" VARCHAR(300) NOT NULL,
-    "urlImage" TEXT NOT NULL,
+    "urlImage" TEXT,
     "maxDrawDate" TIMESTAMP(3) NOT NULL,
-    "drawDate" TIMESTAMP(3) NOT NULL,
+    "drawDate" TIMESTAMP(3),
     "totalTickets" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Award_pkey" PRIMARY KEY ("id")
@@ -17,7 +17,7 @@ CREATE TABLE "Award" (
 CREATE TABLE "AwardPrice" (
     "id" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL DEFAULT 1,
-    "unitPrice" DECIMAL(65,30) NOT NULL DEFAULT 1,
+    "unitPrice" MONEY NOT NULL,
     "awardId" TEXT NOT NULL,
 
     CONSTRAINT "AwardPrice_pkey" PRIMARY KEY ("id")
@@ -67,7 +67,7 @@ CREATE UNIQUE INDEX "Winner_winnerId_key" ON "Winner"("winnerId");
 CREATE UNIQUE INDEX "Winner_ticketId_key" ON "Winner"("ticketId");
 
 -- AddForeignKey
-ALTER TABLE "AwardPrice" ADD CONSTRAINT "AwardPrice_awardId_fkey" FOREIGN KEY ("awardId") REFERENCES "Award"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AwardPrice" ADD CONSTRAINT "AwardPrice_awardId_fkey" FOREIGN KEY ("awardId") REFERENCES "Award"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
