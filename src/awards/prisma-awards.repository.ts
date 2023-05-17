@@ -7,7 +7,7 @@ import { Award } from './entities/award.entity';
 export class PrismaAwardsRepository implements AwardsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(iAward: Award): Promise<Award> {
+  create(iAward: Award): Promise<Award> {
     const { prices, ...award } = iAward;
     return this.prisma.award.create({
       data: {
@@ -18,6 +18,16 @@ export class PrismaAwardsRepository implements AwardsRepository {
           },
         },
       },
+    });
+  }
+
+  findAll(): Promise<Award[]> {
+    return this.prisma.award.findMany({ where: { active: true } });
+  }
+
+  findBySlug(slug: string): Promise<Award> {
+    return this.prisma.award.findFirstOrThrow({
+      where: { slug, active: true },
     });
   }
 }

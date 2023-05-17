@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AwardsService } from './awards.service';
 import { UpdateAwardRequestDto } from './dto/update-award-request.dto';
 import { CreateAwardRequestDto } from './dto/create-award-request.dto';
@@ -17,13 +25,16 @@ export class AwardsController {
     return this.awardsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.awardsService.findOne(+id);
+  @Get(':slug')
+  findOne(@Param('slug') slug: string) {
+    return this.awardsService.findOne(slug);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAwardDto: UpdateAwardRequestDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateAwardDto: UpdateAwardRequestDto,
+  ) {
     return this.awardsService.update(+id, updateAwardDto);
   }
 

@@ -23,6 +23,9 @@ model Award {
   totalTickets     Int          @default(0)
   prices           AwardPrice[]
   winner           Winner?
+  active           Boolean
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 }
 
 model AwardPrice {

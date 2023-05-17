@@ -22,6 +22,7 @@ export class Award {
     this.maxDrawDate = new Date(iAward.maxDrawDate);
     this.urlImage = null;
     this.drawDate = null;
+    this.active = true;
   }
 
   id: string;
@@ -34,4 +35,7 @@ export class Award {
   maxDrawDate: Date;
   urlImage?: string;
   drawDate?: Date;
+  active: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

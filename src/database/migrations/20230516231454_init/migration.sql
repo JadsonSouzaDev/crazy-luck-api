@@ -9,6 +9,9 @@ CREATE TABLE "Award" (
     "maxDrawDate" TIMESTAMP(3) NOT NULL,
     "drawDate" TIMESTAMP(3),
     "totalTickets" INTEGER NOT NULL DEFAULT 0,
+    "active" BOOLEAN NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Award_pkey" PRIMARY KEY ("id")
 );
